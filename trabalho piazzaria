@@ -1,0 +1,72 @@
+total_pedidos = 0
+qtd_pizzas = 0 
+qtd_refrigerantes = 0
+while True:
+  print("\n=====MENU=====")
+  print("1 - Pizza")
+  print("2 - Refrigerante")
+  print("Pizza (PS=Salgada | PD=Doce)")
+  print("Tamanhos: P, M, G")
+  print("Nao realizamos entregas acima de 25 km")
+  item = input("Escolha o item (pizza|refrigerante): ").strip().lower()
+  if item != "pizza" and item != "refrigerante":
+      print("Item invalido. Tente novamente.")
+      continue
+  if item == "pizza":
+      if qtd_pizzas >= 5:
+        print("Limite de pizzas atingido (max: 5).")
+        continue
+      sabor = input("Escolha o sabor (ps|pd): ").strip().upper()
+      if sabor != "PS" and sabor != "PD":
+        print("Sabor invalido. Tente novamente.")
+        continue
+      tamanho = input("Escolha o tamanho (p/m/g): ").strip().upper()
+      if tamanho != "P" and tamanho != "M" and tamanho != "G":
+        if sabor == "PS":
+          preco = 30
+        else:
+          preco = 34
+      elif tamanho == "M":
+        if sabor == "PS":
+          preco = 45
+        else:
+          preco = 48
+      elif tamanho == "G":
+        if sabor == "PS":
+          preco = 60
+        else:
+          preco = 66
+      print(f"Pizza adicionada: R${preco:.2f}")
+      total_pedidos += preco # Corrected variable name
+      qtd_pizzas += 1
+  elif item == "refrigerante":
+    if qtd_refrigerantes >= 2:
+      print("Limite de refrigerantes atingido (max: 2).")
+      continue
+    preco = 15
+    print(f"Refrigerante adicionado: R${preco:.2f}")
+    total_pedidos += preco # Corrected variable name
+    qtd_refrigerantes += 1  
+  continuar = input("Deseja pedir mais alguma coisa? (s/n): ").strip().lower()
+  if continuar != "s":
+    break
+print("\n=====ENTREGA=====")
+distancia = float(input("Informe a distancia (km): "))
+if distancia > 25:
+  print("Nao podemos realizar essa entrega.")
+else:
+  entrega = 0
+  if distancia <= 5:
+    entrega = 0
+  elif distancia < 10: 
+    entrega = 5
+  else:
+    entrega = 10 + (distancia - 10) * 1.10  
+  print(f"Valor da entrega: R${entrega:.2f}") 
+  total_pedidos += entrega 
+print("\n=====RESUMO DO PEDIDO=====")
+print(f"Pizzas: {qtd_pizzas}") 
+print(f"Refrigerantes: {qtd_refrigerantes}")
+print(f"Total a pagar: R${total_pedidos:.2f}")
+
+ 
